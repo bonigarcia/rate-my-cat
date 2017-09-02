@@ -25,7 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -46,21 +45,31 @@ public class WebController {
     }
 
     @RequestMapping(value = "/", method = POST)
-    public ModelAndView rate(@RequestParam long catId,
-            @ModelAttribute Opinion opinion) {
-        log.info("Received vote for cat {}: stars={} comment={}", catId,
-                opinion.getStars(), opinion.getComment());
-
-        Cat ratedCat = catService.rateCat(opinion.getStars(),
-                opinion.getComment(), catId);
+    public ModelAndView rate(@RequestParam Long catId,
+            @RequestParam Double stars, @RequestParam String comment) {
+        log.info("Received vote for cat {}: stars={} comment={}", catId, stars,
+                comment);
 
         ModelAndView model = new ModelAndView("index");
-        model.addObject("cats", catService.getAllCats());
+        try {
+            if (stars == null) {
+                model.addObject("errorMessage",
+                        "You need to select some stars for rating each cat");
 
-        String message = String.format(Locale.US,
-                "Your vote for %s with %.1f stars and '%s' has been stored",
-                ratedCat.getName(), opinion.getStars(), opinion.getComment());
-        model.addObject("message", message);
+            } else {
+                Cat ratedCat = catService.rateCat(stars, comment, catId);
+                String sucessMessage = String.format(Locale.US,
+                        "Your vote for %s with %.1f stars and comment '%s' has been stored",
+                        ratedCat.getName(), stars, comment);
+                model.addObject("sucessMessage", sucessMessage);
+            }
+        } catch (Exception e) {
+            log.error("Exception rating cat", e);
+            model.addObject("errorMessage", e.getMessage());
+        } finally {
+            model.addObject("cats", catService.getAllCats());
+        }
+
         return model;
     }
 

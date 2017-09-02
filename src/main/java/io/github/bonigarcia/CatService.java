@@ -30,8 +30,8 @@ public class CatService {
     @Autowired
     private CatRepository catRepository;
 
-    private static final int MIN_STARS = 1;
-    private static final int MAX_STARS = 5;
+    private static final double MIN_STARS = 0.5;
+    private static final double MAX_STARS = 5;
 
     final Logger log = LoggerFactory.getLogger(CatService.class);
 

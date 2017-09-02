@@ -22,11 +22,18 @@
         <h1><img src="./img/rate-my-cat.png">Rate my cat!</h1>
         <p class="page-description text-center">Which one do you like more?</p>
         <div class="tz-gallery">
-            <div class="row" th:if="${message}" id="success">
-                <div class="col-xs-12 alert alert-success" th:text="${message}">
+            <div class="row" th:if="${sucessMessage}" id="success">
+                <div class="col-xs-12 alert alert-success" th:text="${sucessMessage}">
                 </div>
                 <script type="text/javascript">
                     $("#success").delay(5000).fadeOut(300);
+                </script>
+            </div>
+            <div class="row" th:if="${errorMessage}" id="error">
+                <div class="col-xs-12 alert alert-danger" th:text="${errorMessage}">
+                </div>
+                <script type="text/javascript">
+                    $("#error").delay(5000).fadeOut(300);
                 </script>
             </div>
             <div class="row">
