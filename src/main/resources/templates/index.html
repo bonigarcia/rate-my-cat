@@ -22,9 +22,16 @@
         <h1><img src="./img/rate-my-cat.png">Rate my cat!</h1>
         <p class="page-description text-center">Which one do you like more?</p>
         <div class="tz-gallery">
+            <div class="row" th:if="${message}" id="success">
+                <div class="col-xs-12 alert alert-success" th:text="${message}">
+                </div>
+                <script type="text/javascript">
+                    $("#success").delay(5000).fadeOut(300);
+                </script>
+            </div>
             <div class="row">
                 <div class="col-sm-6 col-md-4" th:each="cat: ${cats}">
-                    <a class="lightbox" data-toggle="modal" th:attr="data-target='#'+${cat.id}"><img th:src="@{${'./img/' + cat.pictureFileName}}" th:alt="${cat.name}" th:title="${cat.name}"></a>
+                    <a class="lightbox" data-toggle="modal" th:attr="data-target='#dialog'+${cat.id}"><img th:src="@{${'./img/' + cat.pictureFileName}}" th:alt="${cat.name}" th:title="${cat.name}"></a>
                 </div>
             </div>
             <div class="row">
@@ -33,7 +40,7 @@
         </div>
     </div>
 
-    <div th:each="cat: ${cats}" th:id="${cat.id}" class="modal fade" role="dialog">
+    <div th:each="cat: ${cats}" th:id="|dialog${cat.id}|" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -41,10 +48,11 @@
                     <h2 class="modal-title"><span th:text="${cat.name}"></span> <img th:src="@{${'./img/stars-' + cat.getHalfRoundedAverageRate() + '.png'}}" th:title="|Averge rate of ${cat.name} ${cat.getAverageRate()}|"></h2>
                 </div>
                 <div class="modal-body"> <img class="img-responsive img-thumbnail" th:src="@{${'./img/' + cat.pictureFileName}}" th:alt="${cat.name}" th:title="${cat.name}">
-                    <form role="form" class="form-inline">
-                        <input id="bella-stars" name="bella-stars" class="rating rating-loading" data-show-clear="false" data-show-caption="true">
-                        <input id="bella-comments" name="bella-comments" type="text" class="form-control" th:placeholder="|Your comments about ${cat.name}|">
-                        <button type="button" class="btn btn-success">Send vote &nbsp; <span class="pull-right"><span class="glyphicon glyphicon-hand-right"></span></span></button>
+                    <form th:id="|form${cat.id}|" role="form" class="form-inline" th:action="@{/}" method="post">
+                        <input id="catId" name="catId" type="hidden" th:value="${cat.id}">
+                        <input id="stars" name="stars" class="rating rating-loading" data-show-clear="false" data-show-caption="true">
+                        <input id="comment" name="comment" type="text" class="form-control" th:placeholder="|Your comments about ${cat.name}|">
+                        <button type="submit" class="btn btn-success">Send vote &nbsp; <span class="pull-right"><span class="glyphicon glyphicon-hand-right"></span></span></button>
                     </form>
                     <br>
                     <div th:if="${cat.opinions.size() > 0}" th:id="|carousel${cat.id}|" class="carousel slide" data-ride="carousel">
@@ -56,7 +64,7 @@
                                         <div class="thumbnail adjust1">
                                             <div class="col-xs-12">
                                                 <div class="caption text-center">
-                                                    <p class="text-info lead adjust2"> <img th:src="@{${'./img/stars-' + opinion.getHalfRoundedStars() + '.png'}}"></p>
+                                                    <p class="text-info lead adjust2"><img th:src="@{${'./img/stars-' + opinion.getHalfRoundedStars() + '.png'}}"></p>
                                                     <p th:text="${opinion.comment}"></p>
                                                 </div>
                                             </div>
@@ -65,8 +73,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="left carousel-control" th:href="|#carousel${cat.id}|" data-slide="prev"> <span class="glyphicon glyphicon-chevron-left"></span> </a>
-                        <a class="right carousel-control" th:href="|#carousel${cat.id}|" data-slide="next"> <span class="glyphicon glyphicon-chevron-right"></span> </a>
+                        <a class="left carousel-control" th:href="|#carousel${cat.id}|" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span> </a>
+                        <a class="right carousel-control" th:href="|#carousel${cat.id}|" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span> </a>
                     </div>
                 </div>
                 <div class="modal-footer">

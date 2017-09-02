@@ -50,7 +50,7 @@ public class Cat {
         this.pictureFileName = pictureFileName;
     }
 
-    public void rate(int stars, String comment) {
+    public void rate(double stars, String comment) {
         opinions.add(new Opinion(stars, comment));
     }
 

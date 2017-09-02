@@ -39,7 +39,16 @@ public class CatService {
         return catRepository.save(cat);
     }
 
-    public Cat rateCat(int stars, String comment, Cat cat) {
+    public Cat rateCat(double stars, String comment, long catId) {
+        Optional<Cat> optionalCat = catRepository.findById(catId);
+        if (!optionalCat.isPresent()) {
+            throw new CatException("Cat with id " + catId + "not available");
+        }
+        rateCat(stars, comment, optionalCat.get());
+        return optionalCat.get();
+    }
+
+    public Cat rateCat(double stars, String comment, Cat cat) {
         log.debug("Rating cat with {} stars and comment: \"{}\"", stars,
                 comment);
 
@@ -53,6 +62,7 @@ public class CatService {
         }
 
         cat.rate(stars, comment);
+        saveCat(cat);
         log.debug("Cat info after rating: {}", cat);
 
         return cat;
@@ -64,7 +74,7 @@ public class CatService {
 
     public Iterable<Cat> getAllCats() {
         Iterable<Cat> allCats = catRepository.findAll();
-        allCats.forEach(cat -> log.debug("{}", cat));
+        allCats.forEach(cat -> log.trace("{}", cat));
         return allCats;
     }
 

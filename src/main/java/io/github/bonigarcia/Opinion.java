@@ -59,6 +59,10 @@ public class Opinion {
         this.comment = comment;
     }
 
+    public long getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "Opinion [id=" + id + ", stars=" + stars + ", comment=" + comment
