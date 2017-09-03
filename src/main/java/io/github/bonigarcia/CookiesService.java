@@ -30,9 +30,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class CookiesService {
 
-    static final String COOKIE_NAME = "catList";
-    static final String VALUE_SEPARATOR = "#";
-    static final String CAT_SEPARATOR = "_";
+    public static final String COOKIE_NAME = "catList";
+    public static final String VALUE_SEPARATOR = "#";
+    public static final String CAT_SEPARATOR = "_";
 
     final Logger log = LoggerFactory.getLogger(CookiesService.class);
 
