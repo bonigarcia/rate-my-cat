@@ -16,7 +16,6 @@
  */
 package io.github.bonigarcia;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,21 +83,7 @@ public class CatService {
 
     public List<Cat> getAllCats(String cookieValue) {
         Iterable<Cat> allCats = catRepository.findAll();
-        List<Cat> filteredCats = new ArrayList<>();
-        allCats.forEach(cat -> {
-            boolean catInCookies = cookiesService.isCatInCookies(cat,
-                    cookieValue);
-            cat.setInCookies(catInCookies);
-
-            if (catInCookies) {
-                cat.setOpinions(cookiesService
-                        .updateOpinionsWithCookiesValue(cat, cookieValue));
-            }
-
-            filteredCats.add(cat);
-            log.trace("Cat: {}", cat);
-        });
-        return filteredCats;
+        return cookiesService.filterCatListWithCookies(allCats, cookieValue);
     }
 
     public List<Opinion> getOpinions(Cat cat) {

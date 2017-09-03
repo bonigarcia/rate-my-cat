@@ -109,4 +109,22 @@ public class CookiesService {
         return null;
     }
 
+    public List<Cat> filterCatListWithCookies(Iterable<Cat> allCats,
+            String cookieValue) {
+        List<Cat> filteredCats = new ArrayList<>();
+        allCats.forEach(cat -> {
+            boolean catInCookies = isCatInCookies(cat, cookieValue);
+            cat.setInCookies(catInCookies);
+
+            if (catInCookies) {
+                cat.setOpinions(
+                        updateOpinionsWithCookiesValue(cat, cookieValue));
+            }
+
+            filteredCats.add(cat);
+            log.trace("Cat: {}", cat);
+        });
+        return filteredCats;
+    }
+
 }
