@@ -24,6 +24,7 @@ repositories {
 
 ext {
     junitJupiterVersion  = '5.0.0-RC3'
+    seleniumJupiterVersion  = '1.1.0'
 }
 
 apply plugin: 'java'
@@ -52,6 +53,7 @@ dependencies {
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("org.hamcrest:hamcrest-core")
+    testCompile("io.github.bonigarcia:selenium-jupiter:${seleniumJupiterVersion}")
     testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
     testCompile("org.junit.jupiter:junit-jupiter-params:${junitJupiterVersion}")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
