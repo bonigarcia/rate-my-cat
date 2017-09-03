@@ -16,8 +16,8 @@
  */
 package io.github.bonigarcia;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CatRepository extends CrudRepository<Cat, Long> {
+public interface CatRepository extends JpaRepository<Cat, Long> {
 
 }

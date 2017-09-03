@@ -42,7 +42,7 @@ public class CatService {
     }
 
     public Cat saveCat(Cat cat) {
-        return catRepository.save(cat);
+        return catRepository.saveAndFlush(cat);
     }
 
     public Cat rateCat(double stars, String comment, long catId) {
@@ -92,7 +92,7 @@ public class CatService {
             }
 
             filteredCats.add(cat);
-            log.debug("Cat: {}", cat);
+            log.trace("Cat: {}", cat);
         });
         return filteredCats;
     }

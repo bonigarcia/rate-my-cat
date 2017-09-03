@@ -47,9 +47,7 @@ public class WebController {
     @RequestMapping(value = "/", method = GET)
     public ModelAndView index(
             @CookieValue(value = CookiesService.COOKIE_NAME, defaultValue = "") String cookiesValue) {
-
-        log.debug("Cookies: {}", cookiesValue);
-
+        log.trace("Cookies: {}", cookiesValue);
         ModelAndView model = new ModelAndView("index");
         model.addObject("cats", catService.getAllCats(cookiesValue));
         return model;
@@ -76,8 +74,8 @@ public class WebController {
                         ratedCat.getName(), stars, comment);
                 model.addObject("sucessMessage", sucessMessage);
 
-                cookiesService.addCookie(cookieValue, catId, stars, comment,
-                        response);
+                cookieValue = cookiesService.addCookie(cookieValue, catId,
+                        stars, comment, response);
             }
         } catch (Exception e) {
             log.error("Exception rating cat", e);

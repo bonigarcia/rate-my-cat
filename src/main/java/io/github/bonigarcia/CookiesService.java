@@ -36,7 +36,7 @@ public class CookiesService {
 
     final Logger log = LoggerFactory.getLogger(CookiesService.class);
 
-    public void addCookie(String cookieValue, Long catId, Double stars,
+    public String addCookie(String cookieValue, Long catId, Double stars,
             String comment, HttpServletResponse response) {
         cookieValue += catId + VALUE_SEPARATOR + stars + VALUE_SEPARATOR
                 + Base64.getEncoder().encodeToString(comment.getBytes())
@@ -44,6 +44,8 @@ public class CookiesService {
 
         log.debug("Adding cookie {}={}", COOKIE_NAME, cookieValue);
         response.addCookie(new Cookie("catList", cookieValue));
+
+        return cookieValue;
     }
 
     public boolean isCatInCookies(Cat cat, String cookieValue) {
@@ -64,10 +66,12 @@ public class CookiesService {
             String cookieValue) {
         List<Opinion> outputOpinionList = new ArrayList<>();
         String cookieValueForCat = getValueForCat(cat, cookieValue);
-        double stars = Double
-                .parseDouble(cookieValueForCat.split(VALUE_SEPARATOR)[1]);
-        String comment = new String(Base64.getDecoder()
-                .decode(cookieValueForCat.split(VALUE_SEPARATOR)[2]));
+
+        String[] split = cookieValueForCat.split(VALUE_SEPARATOR);
+        double stars = Double.parseDouble(split[1]);
+        String comment = split.length > 2
+                ? new String(Base64.getDecoder().decode(split[2]))
+                : "";
 
         boolean opinionInCookies = false;
         for (Opinion opinion : cat.getOpinions()) {
