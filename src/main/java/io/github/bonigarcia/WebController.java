@@ -62,6 +62,7 @@ public class WebController {
                 comment);
 
         ModelAndView model = new ModelAndView("index");
+        String newCookieValue = cookieValue;
         try {
             if (stars == null) {
                 model.addObject("errorMessage",
@@ -74,14 +75,14 @@ public class WebController {
                         ratedCat.getName(), stars, comment);
                 model.addObject("sucessMessage", sucessMessage);
 
-                cookieValue = cookiesService.addCookie(cookieValue, catId,
+                newCookieValue = cookiesService.addCookie(cookieValue, catId,
                         stars, comment, response);
             }
         } catch (Exception e) {
             log.error("Exception rating cat", e);
             model.addObject("errorMessage", e.getMessage());
         } finally {
-            model.addObject("cats", catService.getAllCats(cookieValue));
+            model.addObject("cats", catService.getAllCats(newCookieValue));
         }
 
         return model;
