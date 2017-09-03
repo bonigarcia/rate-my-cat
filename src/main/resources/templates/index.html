@@ -58,10 +58,10 @@
                     <form th:id="|form${cat.id}|" role="form" class="form-inline" th:action="@{/}" method="post" th:with="inCookies=${cat.inCookies}">
                         <input id="catId" name="catId" type="hidden" th:value="${cat.id}">
 
-                        <input th:if="${inCookies}" id="stars" name="stars" class="rating rating-loading" data-show-clear="false" data-show-caption="true" th:value="${cat.getOpinionsInCookies().getHalfRoundedStars()}" disabled>
+                        <input th:if="${inCookies}" id="stars" name="stars" class="rating rating-loading" data-show-clear="false" data-show-caption="true" th:value="${cat.getStarsInCookies()}" disabled>
                         <input th:unless="${inCookies}" id="stars" name="stars" class="rating rating-loading" data-show-clear="false" data-show-caption="true">
 
-                        <h4 th:if="${inCookies}" th:text="${cat.getOpinionsInCookies().getComment()}"></h4>
+                        <h4 th:if="${inCookies}" th:text="${cat.getCommentInCookies()}"></h4>
                         <input th:unless="${inCookies}" id="comment" name="comment" type="text" class="form-control" th:placeholder="|Your comments about ${cat.name}|">
 
                         <button th:unless="${inCookies}" type="submit" class="btn btn-success">Send vote &nbsp; <span class="pull-right"><span class="glyphicon glyphicon-hand-right"></span></span></button>

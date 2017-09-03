@@ -18,6 +18,7 @@ package io.github.bonigarcia;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
@@ -106,13 +107,29 @@ public class Cat {
         return opinionsSize;
     }
 
-    public Opinion getOpinionsInCookies() {
+    public double getStarsInCookies() {
+        Optional<Opinion> opinionsInCookies = getOpinionsInCookies();
+        if (opinionsInCookies.isPresent()) {
+            return opinionsInCookies.get().getHalfRoundedStars();
+        }
+        return 0;
+    }
+
+    public String getCommentInCookies() {
+        Optional<Opinion> opinionsInCookies = getOpinionsInCookies();
+        if (opinionsInCookies.isPresent()) {
+            return opinionsInCookies.get().getComment();
+        }
+        return "";
+    }
+
+    public Optional<Opinion> getOpinionsInCookies() {
         for (Opinion opinion : opinions) {
             if (opinion.isInCookies()) {
-                return opinion;
+                return Optional.of(opinion);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     public void setOpinions(List<Opinion> opinions) {

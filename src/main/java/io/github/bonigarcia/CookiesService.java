@@ -69,8 +69,16 @@ public class CookiesService {
         String comment = new String(Base64.getDecoder()
                 .decode(cookieValueForCat.split(VALUE_SEPARATOR)[2]));
 
+        boolean opinionInCookies = false;
         for (Opinion opinion : cat.getOpinions()) {
-            opinion.setInCookies(isOpinionInCookies(opinion, stars, comment));
+            opinionInCookies = isOpinionInCookies(opinion, stars, comment);
+            opinion.setInCookies(opinionInCookies);
+            outputOpinionList.add(opinion);
+        }
+
+        if (!opinionInCookies) {
+            Opinion opinion = new Opinion(stars, comment);
+            opinion.setInCookies(true);
             outputOpinionList.add(opinion);
         }
         return outputOpinionList;

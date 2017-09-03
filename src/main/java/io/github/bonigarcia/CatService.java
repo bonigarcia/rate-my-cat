@@ -92,7 +92,7 @@ public class CatService {
             }
 
             filteredCats.add(cat);
-            log.debug("Filtered cat: {}", cat);
+            log.debug("Cat: {}", cat);
         });
         return filteredCats;
     }
