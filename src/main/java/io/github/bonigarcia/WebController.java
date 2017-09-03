@@ -21,10 +21,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,21 +34,32 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class WebController {
 
-    @Autowired
     private CatService catService;
+    private CookiesService cookiesService;
+
+    public WebController(CatService catService, CookiesService cookiesService) {
+        this.catService = catService;
+        this.cookiesService = cookiesService;
+    }
 
     final Logger log = LoggerFactory.getLogger(WebController.class);
 
     @RequestMapping(value = "/", method = GET)
-    public ModelAndView index() {
+    public ModelAndView index(
+            @CookieValue(value = CookiesService.COOKIE_NAME, defaultValue = "") String cookiesValue) {
+
+        log.debug("Cookies: ", cookiesValue);
+
         ModelAndView model = new ModelAndView("index");
-        model.addObject("cats", catService.getAllCats());
+        model.addObject("cats", catService.getAllCats(cookiesValue));
         return model;
     }
 
     @RequestMapping(value = "/", method = POST)
     public ModelAndView rate(@RequestParam Long catId,
-            @RequestParam Double stars, @RequestParam String comment) {
+            @RequestParam Double stars, @RequestParam String comment,
+            @CookieValue(value = CookiesService.COOKIE_NAME, defaultValue = "") String cookieValue,
+            HttpServletResponse response) {
         log.info("Received vote for cat {}: stars={} comment={}", catId, stars,
                 comment);
 
@@ -62,12 +75,15 @@ public class WebController {
                         "Your vote for %s with %.1f stars and comment '%s' has been stored",
                         ratedCat.getName(), stars, comment);
                 model.addObject("sucessMessage", sucessMessage);
+
+                cookiesService.addCookie(cookieValue, catId, stars, comment,
+                        response);
             }
         } catch (Exception e) {
             log.error("Exception rating cat", e);
             model.addObject("errorMessage", e.getMessage());
         } finally {
-            model.addObject("cats", catService.getAllCats());
+            model.addObject("cats", catService.getAllCats(cookieValue));
         }
 
         return model;

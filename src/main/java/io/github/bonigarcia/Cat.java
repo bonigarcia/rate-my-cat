@@ -27,6 +27,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
 public class Cat {
@@ -37,6 +38,9 @@ public class Cat {
 
     private String name;
     private String pictureFileName;
+
+    @Transient
+    private boolean inCookies;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @OneToMany(cascade = CascadeType.ALL)
@@ -96,6 +100,14 @@ public class Cat {
 
     public void setOpinions(List<Opinion> opinions) {
         this.opinions = opinions;
+    }
+
+    public boolean isInCookies() {
+        return inCookies;
+    }
+
+    public void setInCookies(boolean inCookies) {
+        this.inCookies = inCookies;
     }
 
     @Override

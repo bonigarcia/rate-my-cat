@@ -16,24 +16,30 @@
  */
 package io.github.bonigarcia;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CatService {
 
-    @Autowired
-    private CatRepository catRepository;
-
     private static final double MIN_STARS = 0.5;
     private static final double MAX_STARS = 5;
 
     final Logger log = LoggerFactory.getLogger(CatService.class);
+
+    private CatRepository catRepository;
+    private CookiesService cookiesService;
+
+    public CatService(CatRepository catRepository,
+            CookiesService cookiesService) {
+        this.catRepository = catRepository;
+        this.cookiesService = cookiesService;
+    }
 
     public Cat saveCat(Cat cat) {
         return catRepository.save(cat);
@@ -72,10 +78,16 @@ public class CatService {
         return catRepository.findAll().spliterator().getExactSizeIfKnown();
     }
 
-    public Iterable<Cat> getAllCats() {
+    public List<Cat> getAllCats(String cookieValue) {
         Iterable<Cat> allCats = catRepository.findAll();
-        allCats.forEach(cat -> log.trace("{}", cat));
-        return allCats;
+        List<Cat> filteredCats = new ArrayList<>();
+        allCats.forEach(cat -> {
+            cat.setInCookies(cookiesService.isCatInCookies(cat, cookieValue));
+            filteredCats.add(cat);
+            log.debug("{} isCatInCookies {}", cat.getName(),
+                    cookiesService.isCatInCookies(cat, cookieValue));
+        });
+        return filteredCats;
     }
 
     public List<Opinion> getOpinions(Cat cat) {

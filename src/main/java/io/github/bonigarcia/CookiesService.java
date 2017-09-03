@@ -1,0 +1,61 @@
+/*
+ * (C) Copyright 2017 Boni Garcia (http://bonigarcia.github.io/)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+package io.github.bonigarcia;
+
+import java.util.Base64;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+@Service
+public class CookiesService {
+
+    static final String COOKIE_NAME = "catList";
+    static final String VALUE_SEPARATOR = "#";
+    static final String CAT_SEPARATOR = "$";
+
+    final Logger log = LoggerFactory.getLogger(CookiesService.class);
+
+    public void addCookie(String cookieValue, Long catId, Double stars,
+            String comment, HttpServletResponse response) {
+        cookieValue += catId + VALUE_SEPARATOR + stars + VALUE_SEPARATOR
+                + Base64.getEncoder().encodeToString(comment.getBytes())
+                + CAT_SEPARATOR;
+
+        log.debug("Adding cookie {}={}", COOKIE_NAME, cookieValue);
+        response.addCookie(new Cookie("catList", cookieValue));
+    }
+
+    public boolean isCatInCookies(Cat cat, String cookieValue) {
+        String[] cats = cookieValue.split(CAT_SEPARATOR);
+        for (String strCat : cats) {
+            if (strCat.equals("")) {
+                continue;
+            }
+            if (cat.getId() == Long
+                    .parseLong(strCat.split(VALUE_SEPARATOR)[0])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+}
