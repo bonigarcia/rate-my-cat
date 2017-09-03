@@ -72,7 +72,7 @@ public class Cat {
         for (Opinion opinion : opinions) {
             totalStars += opinion.getStars();
         }
-        if (opinions.size() > 0) {
+        if (!opinions.isEmpty()) {
             average = totalStars / opinions.size();
         }
         return average;
