@@ -38,14 +38,15 @@ public class CookiesService {
 
     public String addCookie(String cookieValue, Long catId, Double stars,
             String comment, HttpServletResponse response) {
-        cookieValue += catId + VALUE_SEPARATOR + stars + VALUE_SEPARATOR
+        String newCookieValue = cookieValue + catId + VALUE_SEPARATOR + stars
+                + VALUE_SEPARATOR
                 + Base64.getEncoder().encodeToString(comment.getBytes())
                 + CAT_SEPARATOR;
 
-        log.debug("Adding cookie {}={}", COOKIE_NAME, cookieValue);
-        response.addCookie(new Cookie("catList", cookieValue));
+        log.debug("Adding cookie {}={}", COOKIE_NAME, newCookieValue);
+        response.addCookie(new Cookie("catList", newCookieValue));
 
-        return cookieValue;
+        return newCookieValue;
     }
 
     public boolean isCatInCookies(Cat cat, String cookieValue) {
