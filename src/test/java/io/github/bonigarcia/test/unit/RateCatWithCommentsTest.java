@@ -53,6 +53,7 @@ class RateCatWithCommentsTest {
     // Test data
     Cat dummy = new Cat("dummy", "dummy.png");
     int stars = 5;
+    long catId = 1;
 
     @DisplayName("Rating cats with comments")
     @ParameterizedTest(name = "Rating cat with comment: \"{0}\"")
@@ -60,7 +61,7 @@ class RateCatWithCommentsTest {
     void testRatingWithComments(String comment) {
         when(catRepository.findById(any(Long.class)))
                 .thenReturn(Optional.of(dummy));
-        Cat dummyCat = catService.rateCat(stars, comment, dummy);
+        Cat dummyCat = catService.rateCat(stars, comment, catId);
         assertThat(
                 catService.getOpinions(dummyCat).iterator().next().getComment(),
                 equalTo(comment));
