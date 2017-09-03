@@ -52,7 +52,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title"><span th:text="${cat.name}"></span> <img th:src="@{${'./img/stars-' + cat.getHalfRoundedAverageRate() + '.png'}}" th:title="|Averge rate of ${cat.name} ${cat.getAverageRate()}|"></h2>
+                    <h2 class="modal-title"><span th:text="${cat.name}"></span> <img th:src="@{${'./img/stars-' + cat.getHalfRoundedAverageRate() + '.png'}}" th:title="|Averge rate of ${cat.name}: ${cat.getAverageRateAsString()}|"></h2>
                 </div>
                 <div class="modal-body"> <img class="img-responsive img-thumbnail" th:src="@{${'./img/' + cat.pictureFileName}}" th:alt="${cat.name}" th:title="${cat.name}">
                     <form th:id="|form${cat.id}|" role="form" class="form-inline" th:action="@{/}" method="post" th:with="inCookies=${cat.inCookies}">

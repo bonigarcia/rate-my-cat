@@ -18,6 +18,7 @@ package io.github.bonigarcia;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import javax.persistence.CascadeType;
@@ -57,6 +58,12 @@ public class Cat {
 
     public void rate(double stars, String comment) {
         opinions.add(new Opinion(stars, comment));
+    }
+
+    public String getAverageRateAsString() {
+        double averageRate = getAverageRate();
+        return averageRate > 0 ? String.format(Locale.US, "%.2f", averageRate)
+                : "Not rated";
     }
 
     public double getAverageRate() {
