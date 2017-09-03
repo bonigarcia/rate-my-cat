@@ -54,6 +54,10 @@ public class CatService {
         return optionalCat.get();
     }
 
+    public Cat rateCat(double stars, Cat cat) {
+        return rateCat(stars, "", cat);
+    }
+
     public Cat rateCat(double stars, String comment, Cat cat) {
         log.debug("Rating cat with {} stars and comment: \"{}\"", stars,
                 comment);
