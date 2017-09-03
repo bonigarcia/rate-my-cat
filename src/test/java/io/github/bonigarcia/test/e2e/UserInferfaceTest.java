@@ -16,14 +16,18 @@
  */
 package io.github.bonigarcia.test.e2e;
 
-import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -39,10 +43,24 @@ public class UserInferfaceTest {
     int serverPort;
 
     @Test
-    @DisplayName("Browser title test")
-    public void testTitle(ChromeDriver chrome) {
+    @DisplayName("Rate a cat using the GUI")
+    public void testRateCat(ChromeDriver chrome) {
         chrome.get("http://localhost:" + serverPort);
-        assertThat(chrome.getTitle(), equalTo("Rate my cat!"));
+        chrome.findElement(By.id("Baby")).click();
+
+        new WebDriverWait(chrome, 10)
+                .until(ExpectedConditions.elementToBeClickable(By.id("form1")));
+
+        chrome.findElement(By.cssSelector(
+                "#form1 > div > div.rating-stars > span.empty-stars > span:nth-child(4)"))
+                .click();
+        chrome.findElement(By.xpath("//*[@id=\"comment\"]"))
+                .sendKeys("Very nice cat");
+        chrome.findElement(By.cssSelector("#form1 > button")).click();
+
+        WebElement sucessDiv = chrome
+                .findElement(By.cssSelector("#success > div"));
+        assertThat(sucessDiv.getText(), containsString("Your vote for Baby"));
     }
 
 }

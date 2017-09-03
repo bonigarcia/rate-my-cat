@@ -38,7 +38,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-6 col-md-4" th:each="cat: ${cats}">
-                    <a class="lightbox" data-toggle="modal" th:attr="data-target='#dialog'+${cat.id}"><img th:src="@{${'./img/' + cat.pictureFileName}}" th:alt="${cat.name}" th:title="${cat.name}"></a>
+                    <a class="lightbox" data-toggle="modal" th:attr="data-target='#dialog'+${cat.id}" th:id="${cat.name}"><img th:src="@{${'./img/' + cat.pictureFileName}}" th:alt="${cat.name}" th:title="${cat.name}"></a>
                 </div>
             </div>
             <div class="row">
