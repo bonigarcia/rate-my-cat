@@ -32,12 +32,9 @@ public class CatService {
     final Logger log = LoggerFactory.getLogger(CatService.class);
 
     private CatRepository catRepository;
-    private CookiesService cookiesService;
 
-    public CatService(CatRepository catRepository,
-            CookiesService cookiesService) {
+    public CatService(CatRepository catRepository) {
         this.catRepository = catRepository;
-        this.cookiesService = cookiesService;
     }
 
     public Cat saveCat(Cat cat) {
@@ -81,9 +78,8 @@ public class CatService {
         return catRepository.findAll().spliterator().getExactSizeIfKnown();
     }
 
-    public List<Cat> getAllCats(String cookieValue) {
-        Iterable<Cat> allCats = catRepository.findAll();
-        return cookiesService.filterCatListWithCookies(allCats, cookieValue);
+    public List<Cat> getAllCats() {
+        return catRepository.findAll();
     }
 
     public List<Opinion> getOpinions(Cat cat) {

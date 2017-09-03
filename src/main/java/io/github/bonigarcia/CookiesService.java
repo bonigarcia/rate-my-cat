@@ -36,7 +36,7 @@ public class CookiesService {
 
     final Logger log = LoggerFactory.getLogger(CookiesService.class);
 
-    public String addCookie(String cookieValue, Long catId, Double stars,
+    public String updateCookies(String cookieValue, Long catId, Double stars,
             String comment, HttpServletResponse response) {
         String newCookieValue = cookieValue + catId + VALUE_SEPARATOR + stars
                 + VALUE_SEPARATOR

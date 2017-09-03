@@ -19,6 +19,7 @@ package io.github.bonigarcia;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletResponse;
@@ -49,20 +50,22 @@ public class WebController {
             @CookieValue(value = CookiesService.COOKIE_NAME, defaultValue = "") String cookiesValue) {
         log.trace("Cookies: {}", cookiesValue);
         ModelAndView model = new ModelAndView("index");
-        model.addObject("cats", catService.getAllCats(cookiesValue));
+        List<Cat> allCats = catService.getAllCats();
+        model.addObject("cats",
+                cookiesService.filterCatListWithCookies(allCats, cookiesValue));
         return model;
     }
 
     @RequestMapping(value = "/", method = POST)
     public ModelAndView rate(@RequestParam Long catId,
             @RequestParam Double stars, @RequestParam String comment,
-            @CookieValue(value = CookiesService.COOKIE_NAME, defaultValue = "") String cookieValue,
+            @CookieValue(value = CookiesService.COOKIE_NAME, defaultValue = "") String cookiesValue,
             HttpServletResponse response) {
         log.info("Received vote for cat {}: stars={} comment={}", catId, stars,
                 comment);
 
         ModelAndView model = new ModelAndView("index");
-        String newCookieValue = cookieValue;
+        String newCookiesValue = cookiesValue;
         try {
             if (stars == null) {
                 model.addObject("errorMessage",
@@ -75,14 +78,16 @@ public class WebController {
                         ratedCat.getName(), stars, comment);
                 model.addObject("sucessMessage", sucessMessage);
 
-                newCookieValue = cookiesService.addCookie(cookieValue, catId,
-                        stars, comment, response);
+                newCookiesValue = cookiesService.updateCookies(cookiesValue,
+                        catId, stars, comment, response);
             }
         } catch (Exception e) {
             log.error("Exception rating cat", e);
             model.addObject("errorMessage", e.getMessage());
         } finally {
-            model.addObject("cats", catService.getAllCats(newCookieValue));
+            List<Cat> allCats = catService.getAllCats();
+            model.addObject("cats", cookiesService
+                    .filterCatListWithCookies(allCats, newCookiesValue));
         }
 
         return model;
