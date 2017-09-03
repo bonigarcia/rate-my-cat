@@ -20,6 +20,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Opinion {
@@ -30,6 +31,9 @@ public class Opinion {
 
     private double stars;
     private String comment;
+
+    @Transient
+    private boolean inCookies;
 
     protected Opinion() {
     }
@@ -63,10 +67,18 @@ public class Opinion {
         return id;
     }
 
+    public boolean isInCookies() {
+        return inCookies;
+    }
+
+    public void setInCookies(boolean inCookies) {
+        this.inCookies = inCookies;
+    }
+
     @Override
     public String toString() {
         return "Opinion [id=" + id + ", stars=" + stars + ", comment=" + comment
-                + "]";
+                + ", inCookies=" + inCookies + "]";
     }
 
 }

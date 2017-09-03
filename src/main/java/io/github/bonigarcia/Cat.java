@@ -98,6 +98,23 @@ public class Cat {
         return opinions;
     }
 
+    public int getOpinionsSize() {
+        int opinionsSize = opinions.size();
+        if (isInCookies()) {
+            opinionsSize--;
+        }
+        return opinionsSize;
+    }
+
+    public Opinion getOpinionsInCookies() {
+        for (Opinion opinion : opinions) {
+            if (opinion.isInCookies()) {
+                return opinion;
+            }
+        }
+        return null;
+    }
+
     public void setOpinions(List<Opinion> opinions) {
         this.opinions = opinions;
     }
@@ -113,7 +130,8 @@ public class Cat {
     @Override
     public String toString() {
         return "Cat [id=" + id + ", name=" + name + ", pictureFileName="
-                + pictureFileName + ", comments=" + opinions + "]";
+                + pictureFileName + ", inCookies=" + inCookies + ", opinions="
+                + opinions + "]";
     }
 
 }

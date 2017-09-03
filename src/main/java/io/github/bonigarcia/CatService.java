@@ -82,10 +82,17 @@ public class CatService {
         Iterable<Cat> allCats = catRepository.findAll();
         List<Cat> filteredCats = new ArrayList<>();
         allCats.forEach(cat -> {
-            cat.setInCookies(cookiesService.isCatInCookies(cat, cookieValue));
+            boolean catInCookies = cookiesService.isCatInCookies(cat,
+                    cookieValue);
+            cat.setInCookies(catInCookies);
+
+            if (catInCookies) {
+                cat.setOpinions(cookiesService
+                        .updateOpinionsWithCookiesValue(cat, cookieValue));
+            }
+
             filteredCats.add(cat);
-            log.debug("{} isCatInCookies {}", cat.getName(),
-                    cookiesService.isCatInCookies(cat, cookieValue));
+            log.debug("Filtered cat: {}", cat);
         });
         return filteredCats;
     }

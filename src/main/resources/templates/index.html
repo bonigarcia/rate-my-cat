@@ -52,20 +52,25 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title"><span th:text="|${cat.name} ${cat.inCookies}|"></span> <img th:src="@{${'./img/stars-' + cat.getHalfRoundedAverageRate() + '.png'}}" th:title="|Averge rate of ${cat.name} ${cat.getAverageRate()}|"></h2>
+                    <h2 class="modal-title"><span th:text="${cat.name}"></span> <img th:src="@{${'./img/stars-' + cat.getHalfRoundedAverageRate() + '.png'}}" th:title="|Averge rate of ${cat.name} ${cat.getAverageRate()}|"></h2>
                 </div>
                 <div class="modal-body"> <img class="img-responsive img-thumbnail" th:src="@{${'./img/' + cat.pictureFileName}}" th:alt="${cat.name}" th:title="${cat.name}">
-                    <form th:id="|form${cat.id}|" role="form" class="form-inline" th:action="@{/}" method="post">
+                    <form th:id="|form${cat.id}|" role="form" class="form-inline" th:action="@{/}" method="post" th:with="inCookies=${cat.inCookies}">
                         <input id="catId" name="catId" type="hidden" th:value="${cat.id}">
-                        <input id="stars" name="stars" class="rating rating-loading" data-show-clear="false" data-show-caption="true">
-                        <input id="comment" name="comment" type="text" class="form-control" th:placeholder="|Your comments about ${cat.name}|">
-                        <button type="submit" class="btn btn-success">Send vote &nbsp; <span class="pull-right"><span class="glyphicon glyphicon-hand-right"></span></span></button>
+
+                        <input th:if="${inCookies}" id="stars" name="stars" class="rating rating-loading" data-show-clear="false" data-show-caption="true" th:value="${cat.getOpinionsInCookies().getHalfRoundedStars()}" disabled>
+                        <input th:unless="${inCookies}" id="stars" name="stars" class="rating rating-loading" data-show-clear="false" data-show-caption="true">
+
+                        <h4 th:if="${inCookies}" th:text="${cat.getOpinionsInCookies().getComment()}"></h4>
+                        <input th:unless="${inCookies}" id="comment" name="comment" type="text" class="form-control" th:placeholder="|Your comments about ${cat.name}|">
+
+                        <button th:unless="${inCookies}" type="submit" class="btn btn-success">Send vote &nbsp; <span class="pull-right"><span class="glyphicon glyphicon-hand-right"></span></span></button>
                     </form>
                     <br>
-                    <div th:if="${cat.opinions.size() > 0}" th:id="|carousel${cat.id}|" class="carousel slide" data-ride="carousel">
+                    <div th:if="${cat.getOpinionsSize() > 0}" th:id="|carousel${cat.id}|" class="carousel slide" data-ride="carousel">
                         <h4 th:text="|Other opinions about ${cat.name}|"></h4>
                         <div class="carousel-inner">
-                            <div th:each="opinion, it: ${cat.opinions}" th:class="${it.index == 0} ? 'item active' : 'item'">
+                            <div th:each="opinion, it: ${cat.opinions}" th:class="${it.index == 0} ? 'item active' : 'item'" th:unless="${opinion.isInCookies()}">
                                 <div class="row">
                                     <div class="col-xs-12">
                                         <div class="thumbnail adjust1">

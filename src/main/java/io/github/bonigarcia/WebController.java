@@ -48,7 +48,7 @@ public class WebController {
     public ModelAndView index(
             @CookieValue(value = CookiesService.COOKIE_NAME, defaultValue = "") String cookiesValue) {
 
-        log.debug("Cookies: ", cookiesValue);
+        log.debug("Cookies: {}", cookiesValue);
 
         ModelAndView model = new ModelAndView("index");
         model.addObject("cats", catService.getAllCats(cookiesValue));

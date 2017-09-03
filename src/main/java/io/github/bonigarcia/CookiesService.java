@@ -16,7 +16,9 @@
  */
 package io.github.bonigarcia;
 
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +32,7 @@ public class CookiesService {
 
     static final String COOKIE_NAME = "catList";
     static final String VALUE_SEPARATOR = "#";
-    static final String CAT_SEPARATOR = "$";
+    static final String CAT_SEPARATOR = "_";
 
     final Logger log = LoggerFactory.getLogger(CookiesService.class);
 
@@ -56,6 +58,42 @@ public class CookiesService {
             }
         }
         return false;
+    }
+
+    public List<Opinion> updateOpinionsWithCookiesValue(Cat cat,
+            String cookieValue) {
+        List<Opinion> outputOpinionList = new ArrayList<>();
+        String cookieValueForCat = getValueForCat(cat, cookieValue);
+        double stars = Double
+                .parseDouble(cookieValueForCat.split(VALUE_SEPARATOR)[1]);
+        String comment = new String(Base64.getDecoder()
+                .decode(cookieValueForCat.split(VALUE_SEPARATOR)[2]));
+
+        for (Opinion opinion : cat.getOpinions()) {
+            opinion.setInCookies(isOpinionInCookies(opinion, stars, comment));
+            outputOpinionList.add(opinion);
+        }
+        return outputOpinionList;
+    }
+
+    public boolean isOpinionInCookies(Opinion opinion, double stars,
+            String comment) {
+        return opinion.getStars() == stars
+                && opinion.getComment().equals(comment);
+    }
+
+    public String getValueForCat(Cat cat, String cookieValue) {
+        String[] cats = cookieValue.split(CAT_SEPARATOR);
+        for (String strCat : cats) {
+            if (strCat.equals("")) {
+                continue;
+            }
+            if (cat.getId() == Long
+                    .parseLong(strCat.split(VALUE_SEPARATOR)[0])) {
+                return strCat;
+            }
+        }
+        return null;
     }
 
 }
