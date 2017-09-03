@@ -17,9 +17,14 @@
 package io.github.bonigarcia.test.unit;
 
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.collection.IsEmptyCollection.empty;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
+
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +36,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import io.github.bonigarcia.Cat;
 import io.github.bonigarcia.CookiesService;
+import io.github.bonigarcia.Opinion;
 import io.github.bonigarcia.mockito.MockitoExtension;
 
 @Tag("unit")
@@ -53,6 +60,41 @@ class CookiesTest {
         String cookies = cookiesService.updateCookies("", 0L, 0D, "", response);
         assertThat(cookies, containsString(CookiesService.VALUE_SEPARATOR));
         assertThat(cookies, containsString(CookiesService.CAT_SEPARATOR));
+    }
+
+    // Test data
+    Cat dummy = new Cat("dummy", "dummy.png");
+    String dummyCookie = "0#0.0#_";
+
+    @DisplayName("Check cat in cookies")
+    @Test
+    void testCheckCatInCookies() {
+        boolean catInCookies = cookiesService.isCatInCookies(dummy,
+                dummyCookie);
+        assertThat(catInCookies, equalTo(true));
+    }
+
+    @DisplayName("Check cat in empty cookies")
+    @Test
+    void testCheckCatInEmptyCookies() {
+        boolean catInCookies = cookiesService.isCatInCookies(dummy, "");
+        assertThat(catInCookies, equalTo(false));
+    }
+
+    @DisplayName("Update opinions with cookies")
+    @Test
+    void testUpdateOpinionsWithCookies() {
+        List<Opinion> opinions = cookiesService
+                .updateOpinionsWithCookiesValue(dummy, dummyCookie);
+        assertThat(opinions, not(empty()));
+    }
+
+    @DisplayName("Update opinions with empty cookies")
+    @Test
+    void testUpdateOpinionsWithEmptyCookies() {
+        List<Opinion> opinions = cookiesService
+                .updateOpinionsWithCookiesValue(dummy, "");
+        assertThat(opinions, empty());
     }
 
 }

@@ -19,6 +19,7 @@ package io.github.bonigarcia;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -66,25 +67,27 @@ public class CookiesService {
     public List<Opinion> updateOpinionsWithCookiesValue(Cat cat,
             String cookieValue) {
         List<Opinion> outputOpinionList = new ArrayList<>();
-        String cookieValueForCat = getValueForCat(cat, cookieValue);
+        Optional<String> cookieValueForCat = getValueForCat(cat, cookieValue);
 
-        String[] split = cookieValueForCat.split(VALUE_SEPARATOR);
-        double stars = Double.parseDouble(split[1]);
-        String comment = split.length > 2
-                ? new String(Base64.getDecoder().decode(split[2]))
-                : "";
+        if (cookieValueForCat.isPresent()) {
+            String[] split = cookieValueForCat.get().split(VALUE_SEPARATOR);
+            double stars = Double.parseDouble(split[1]);
+            String comment = split.length > 2
+                    ? new String(Base64.getDecoder().decode(split[2]))
+                    : "";
 
-        boolean opinionInCookies = false;
-        for (Opinion opinion : cat.getOpinions()) {
-            opinionInCookies = isOpinionInCookies(opinion, stars, comment);
-            opinion.setInCookies(opinionInCookies);
-            outputOpinionList.add(opinion);
-        }
+            boolean opinionInCookies = false;
+            for (Opinion opinion : cat.getOpinions()) {
+                opinionInCookies = isOpinionInCookies(opinion, stars, comment);
+                opinion.setInCookies(opinionInCookies);
+                outputOpinionList.add(opinion);
+            }
 
-        if (!opinionInCookies) {
-            Opinion opinion = new Opinion(stars, comment);
-            opinion.setInCookies(true);
-            outputOpinionList.add(opinion);
+            if (!opinionInCookies) {
+                Opinion opinion = new Opinion(stars, comment);
+                opinion.setInCookies(true);
+                outputOpinionList.add(opinion);
+            }
         }
         return outputOpinionList;
     }
@@ -95,7 +98,7 @@ public class CookiesService {
                 && opinion.getComment().equals(comment);
     }
 
-    public String getValueForCat(Cat cat, String cookieValue) {
+    public Optional<String> getValueForCat(Cat cat, String cookieValue) {
         String[] cats = cookieValue.split(CAT_SEPARATOR);
         for (String strCat : cats) {
             if (strCat.equals("")) {
@@ -103,10 +106,10 @@ public class CookiesService {
             }
             if (cat.getId() == Long
                     .parseLong(strCat.split(VALUE_SEPARATOR)[0])) {
-                return strCat;
+                return Optional.of(strCat);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     public List<Cat> filterCatListWithCookies(Iterable<Cat> allCats,
