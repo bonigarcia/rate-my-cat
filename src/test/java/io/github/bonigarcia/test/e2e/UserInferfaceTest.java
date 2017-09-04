@@ -26,6 +26,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -60,6 +61,23 @@ public class UserInferfaceTest {
         WebElement sucessDiv = driver
                 .findElement(By.cssSelector("#success > div"));
         assertThat(sucessDiv.getText(), containsString("Your vote for Baby"));
+    }
+
+    @Test
+    @DisplayName("Rate a cat using the GUI with error")
+    public void testRateCatWithError(ChromeDriver driver) {
+        driver.get("http://localhost:" + serverPort);
+        driver.findElement(By.id("Baby")).click();
+
+        String sendButtonSelector = "#form1 > button";
+        new WebDriverWait(driver, 10).until(
+                elementToBeClickable(By.cssSelector(sendButtonSelector)));
+        driver.findElement(By.cssSelector(sendButtonSelector)).click();
+
+        WebElement sucessDiv = driver
+                .findElement(By.cssSelector("#error > div"));
+        assertThat(sucessDiv.getText(), containsString(
+                "You need to select some stars for rating each cat"));
     }
 
 }
