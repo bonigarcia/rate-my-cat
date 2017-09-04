@@ -13,6 +13,8 @@
         <junit.platform.version>1.0.0-RC3</junit.platform.version>
         <hamcrest-core.version>1.2</hamcrest-core.version>
         <selenium-jupiter.version>1.1.1</selenium-jupiter.version>
+        <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
+        <jacoco-maven-plugin>0.7.9</jacoco-maven-plugin>
 
         <!-- Java 8 -->
         <java.version>1.8</java.version>
@@ -82,6 +84,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.junit.platform</groupId>
@@ -98,6 +101,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -109,6 +113,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin}</version>
                 <executions>
                     <execution>
                         <goals>

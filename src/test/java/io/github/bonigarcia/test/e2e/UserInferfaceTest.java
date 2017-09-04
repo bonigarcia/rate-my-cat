@@ -19,7 +19,6 @@ package io.github.bonigarcia.test.e2e;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 import org.junit.jupiter.api.DisplayName;
@@ -73,15 +72,11 @@ public class UserInferfaceTest {
     public void testRateCatWithError(ChromeDriver driver) {
         driver.get("http://localhost:" + serverPort);
         driver.findElement(By.id("Baby")).click();
-        log.info("After click Baby");
 
         String sendButtonSelector = "#form1 > button";
         new WebDriverWait(driver, 10).until(
-                presenceOfElementLocated(By.cssSelector(sendButtonSelector)));
-        log.info("After wait");
-
+                elementToBeClickable(By.cssSelector(sendButtonSelector)));
         driver.findElement(By.cssSelector(sendButtonSelector)).click();
-        log.info("After click button");
 
         WebElement sucessDiv = driver
                 .findElement(By.cssSelector("#error > div"));
