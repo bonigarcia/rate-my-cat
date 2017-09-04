@@ -17,15 +17,19 @@
 package io.github.bonigarcia.test.e2e;
 
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+
+import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -46,6 +50,15 @@ public class UserInferfaceTest {
 
     @LocalServerPort
     int serverPort;
+
+    @Test
+    @DisplayName("List cats in the GUI")
+    public void testListCats(ChromeDriver driver) {
+        driver.get("http://localhost:" + serverPort);
+        List<WebElement> catLinks = driver
+                .findElements(By.className("lightbox"));
+        assertThat(catLinks.size(), equalTo(9));
+    }
 
     @Test
     @DisplayName("Rate a cat using the GUI")
