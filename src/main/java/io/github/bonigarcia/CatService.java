@@ -44,7 +44,7 @@ public class CatService {
     public Cat rateCat(double stars, String comment, long catId) {
         Optional<Cat> optionalCat = catRepository.findById(catId);
         if (!optionalCat.isPresent()) {
-            throw new CatException("Cat with id " + catId + "not available");
+            throw new CatException("Cat with id " + catId + " not available");
         }
         rateCat(stars, comment, optionalCat.get());
         return optionalCat.get();

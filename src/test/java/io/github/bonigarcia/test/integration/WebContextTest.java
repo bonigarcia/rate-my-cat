@@ -17,6 +17,7 @@
 package io.github.bonigarcia.test.integration;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -32,7 +33,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-class IndexTest {
+class WebContextTest {
 
     @Autowired
     WebApplicationContext webContext;
@@ -45,9 +46,28 @@ class IndexTest {
     }
 
     @Test
-    void testIndex() throws Exception {
+    void testHomePage() throws Exception {
         mockMvc.perform(get("/")).andExpect(status().isOk())
                 .andExpect(content().contentType("text/html;charset=UTF-8"));
+    }
+
+    @Test
+    void testRatePage() throws Exception {
+        mockMvc.perform(post("/").param("catId", "1").param("stars", "1")
+                .param("comment", "")).andExpect(status().isOk())
+                .andExpect(content().contentType("text/html;charset=UTF-8"));
+    }
+
+    @Test
+    void testRatePageCatNotAvailable() throws Exception {
+        mockMvc.perform(post("/").param("catId", "0").param("stars", "1")
+                .param("comment", "")).andExpect(status().isOk())
+                .andExpect(content().contentType("text/html;charset=UTF-8"));
+    }
+
+    @Test
+    void testRatePageNoParameters() throws Exception {
+        mockMvc.perform(post("/")).andExpect(status().isBadRequest());
     }
 
 }

@@ -29,7 +29,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -50,15 +49,6 @@ public class UserInferfaceTest {
 
     @LocalServerPort
     int serverPort;
-
-    @Test
-    @DisplayName("List cats in the GUI")
-    public void testListCats(ChromeDriver driver) {
-        driver.get("http://localhost:" + serverPort);
-        List<WebElement> catLinks = driver
-                .findElements(By.className("lightbox"));
-        assertThat(catLinks.size(), equalTo(9));
-    }
 
     @Test
     @DisplayName("Rate a cat using the GUI")
@@ -82,7 +72,7 @@ public class UserInferfaceTest {
 
     @Test
     @DisplayName("Rate a cat using the GUI with error")
-    public void testRateCatWithError(PhantomJSDriver driver) {
+    public void testRateCatWithError(FirefoxDriver driver) {
         driver.get("http://localhost:" + serverPort);
         driver.findElement(By.id("Baby")).click();
 
@@ -95,6 +85,15 @@ public class UserInferfaceTest {
                 .findElement(By.cssSelector("#error > div"));
         assertThat(sucessDiv.getText(), containsString(
                 "You need to select some stars for rating each cat"));
+    }
+
+    @Test
+    @DisplayName("List cats in the GUI")
+    public void testListCats(PhantomJSDriver driver) {
+        driver.get("http://localhost:" + serverPort);
+        List<WebElement> catLinks = driver
+                .findElements(By.className("lightbox"));
+        assertThat(catLinks.size(), equalTo(9));
     }
 
 }
