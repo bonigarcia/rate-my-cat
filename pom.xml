@@ -5,17 +5,13 @@
     <artifactId>rate-my-cat</artifactId>
     <version>1.0.0</version>
 
-    <!-- Parent (Spring Boot) -->
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.0.M3</version>
-    </parent>
-
     <properties>
         <!-- Dependency versions -->
+        <spring-boot.version>2.0.0.M3</spring-boot.version>
+        <h2.version>1.4.196</h2.version>
         <junit.jupiter.version>5.0.0-RC3</junit.jupiter.version>
         <junit.platform.version>1.0.0-RC3</junit.platform.version>
+        <hamcrest-core.version>1.2</hamcrest-core.version>
         <selenium-jupiter.version>1.1.1</selenium-jupiter.version>
 
         <!-- Java 8 -->
@@ -32,23 +28,28 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring-boot.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <version>${spring-boot.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>${spring-boot.version}</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring-boot.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -66,6 +67,7 @@
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-core</artifactId>
+            <version>${hamcrest-core.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
