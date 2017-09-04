@@ -51,20 +51,8 @@ public class Opinion {
         return stars;
     }
 
-    public void setStars(double stars) {
-        this.stars = stars;
-    }
-
     public String getComment() {
         return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public long getId() {
-        return id;
     }
 
     public boolean isInCookies() {
