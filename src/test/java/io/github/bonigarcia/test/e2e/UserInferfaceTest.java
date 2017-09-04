@@ -33,8 +33,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -46,8 +44,6 @@ import io.github.bonigarcia.SeleniumExtension;
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 public class UserInferfaceTest {
 
-    final Logger log = LoggerFactory.getLogger(UserInferfaceTest.class);
-
     @LocalServerPort
     int serverPort;
 
@@ -57,7 +53,7 @@ public class UserInferfaceTest {
         driver.get("http://localhost:" + serverPort);
         driver.findElement(By.id("Baby")).click();
 
-        String fourStarsSelector = "#form1 > div > div.rating-stars > span.empty-stars > span:nth-child(4)";
+        String fourStarsSelector = "#form1 span:nth-child(4)";
         new WebDriverWait(driver, 10)
                 .until(elementToBeClickable(By.cssSelector(fourStarsSelector)));
         driver.findElement(By.cssSelector(fourStarsSelector)).click();
