@@ -19,5 +19,5 @@ before_script:
     - sleep 3
 
 script:
-    - mvn test sonar:sonar
+    - mvn test sonar:sonar -Dwdm.geckoDriverUrl=http://npm.taobao.org/mirrors/geckodriver
     - bash <(curl -s https://codecov.io/bash)
