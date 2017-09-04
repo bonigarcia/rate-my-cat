@@ -86,16 +86,8 @@ public class Cat {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getPictureFileName() {
         return pictureFileName;
-    }
-
-    public void setPictureFileName(String pictureFileName) {
-        this.pictureFileName = pictureFileName;
     }
 
     public long getId() {
