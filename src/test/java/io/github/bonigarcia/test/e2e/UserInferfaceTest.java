@@ -26,7 +26,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -48,12 +48,11 @@ public class UserInferfaceTest {
         chrome.get("http://localhost:" + serverPort);
         chrome.findElement(By.id("Baby")).click();
 
+        String fourStarsSelector = "#form1 > div > div.rating-stars > span.empty-stars > span:nth-child(4)";
         new WebDriverWait(chrome, 10)
-                .until(ExpectedConditions.elementToBeClickable(By.id("form1")));
+                .until(elementToBeClickable(By.cssSelector(fourStarsSelector)));
+        chrome.findElement(By.cssSelector(fourStarsSelector)).click();
 
-        chrome.findElement(By.cssSelector(
-                "#form1 > div > div.rating-stars > span.empty-stars > span:nth-child(4)"))
-                .click();
         chrome.findElement(By.xpath("//*[@id=\"comment\"]"))
                 .sendKeys("Very nice cat");
         chrome.findElement(By.cssSelector("#form1 > button")).click();
