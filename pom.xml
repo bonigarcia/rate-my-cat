@@ -5,16 +5,18 @@
     <artifactId>rate-my-cat</artifactId>
     <version>1.0.0</version>
 
+    <!-- Parent (Spring Boot) -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.0.M3</version>
+    </parent>
+
     <properties>
         <!-- Dependency versions -->
-        <spring-boot.version>2.0.0.M3</spring-boot.version>
-        <h2.version>1.4.196</h2.version>
         <junit.jupiter.version>5.0.0-RC3</junit.jupiter.version>
         <junit.platform.version>1.0.0-RC3</junit.platform.version>
-        <hamcrest-core.version>1.2</hamcrest-core.version>
         <selenium-jupiter.version>1.1.1</selenium-jupiter.version>
-        <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
-        <jacoco-maven-plugin>0.7.9</jacoco-maven-plugin>
 
         <!-- Java 8 -->
         <java.version>1.8</java.version>
@@ -30,28 +32,23 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>${spring-boot.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
-            <version>${spring-boot.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>${spring-boot.version}</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>${h2.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>${spring-boot.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -69,7 +66,6 @@
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-core</artifactId>
-            <version>${hamcrest-core.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -84,7 +80,6 @@
         <plugins>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.junit.platform</groupId>
@@ -101,7 +96,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -113,7 +107,6 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco-maven-plugin}</version>
                 <executions>
                     <execution>
                         <goals>
