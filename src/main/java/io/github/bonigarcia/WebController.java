@@ -82,7 +82,7 @@ public class WebController {
                         catId, stars, comment, response);
             }
         } catch (Exception e) {
-            log.error("Exception rating cat", e);
+            log.error("Exception rating cat: {}", e.getMessage());
             model.addObject("errorMessage", e.getMessage());
         } finally {
             List<Cat> allCats = catService.getAllCats();
