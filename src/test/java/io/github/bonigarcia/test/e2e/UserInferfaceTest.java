@@ -25,6 +25,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
@@ -39,16 +40,28 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import io.github.bonigarcia.SeleniumExtension;
 
-@DisplayName("Test of the web user interface")
 @ExtendWith({ SpringExtension.class, SeleniumExtension.class })
 @SpringBootTest(webEnvironment = RANDOM_PORT)
+@DisplayName("Test of the web user interface")
+@Tag("e2e")
 public class UserInferfaceTest {
 
     @LocalServerPort
     int serverPort;
 
     @Test
+    @DisplayName("List cats in the GUI")
+    @Tag("functional-requirement-1")
+    public void testListCats(PhantomJSDriver driver) {
+        driver.get("http://localhost:" + serverPort);
+        List<WebElement> catLinks = driver
+                .findElements(By.className("lightbox"));
+        assertThat(catLinks.size(), equalTo(9));
+    }
+
+    @Test
     @DisplayName("Rate a cat using the GUI")
+    @Tag("functional-requirement-2")
     public void testRateCat(ChromeDriver driver) {
         driver.get("http://localhost:" + serverPort);
         driver.findElement(By.id("Baby")).click();
@@ -69,6 +82,7 @@ public class UserInferfaceTest {
 
     @Test
     @DisplayName("Rate a cat using the GUI with error")
+    @Tag("functional-requirement-2")
     public void testRateCatWithError(FirefoxDriver driver) {
         driver.get("http://localhost:" + serverPort);
         driver.findElement(By.id("Baby")).click();
@@ -82,15 +96,6 @@ public class UserInferfaceTest {
                 .findElement(By.cssSelector("#error > div"));
         assertThat(sucessDiv.getText(), containsString(
                 "You need to select some stars for rating each cat"));
-    }
-
-    @Test
-    @DisplayName("List cats in the GUI")
-    public void testListCats(PhantomJSDriver driver) {
-        driver.get("http://localhost:" + serverPort);
-        List<WebElement> catLinks = driver
-                .findElements(By.className("lightbox"));
-        assertThat(catLinks.size(), equalTo(9));
     }
 
 }

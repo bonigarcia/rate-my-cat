@@ -18,11 +18,16 @@ package io.github.bonigarcia.test.unit;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.text.IsEmptyString.isEmptyString;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -35,11 +40,10 @@ import io.github.bonigarcia.CatRepository;
 import io.github.bonigarcia.CatService;
 import io.github.bonigarcia.mockito.MockitoExtension;
 
-@Tag("unit")
-@Tag("FR4")
-@DisplayName("Rating cats with stars")
 @ExtendWith(MockitoExtension.class)
-class RateCatWithStarsTest {
+@DisplayName("Rating cats with stars")
+@Tag("unit")
+class RateCatsTest {
 
     @InjectMocks
     CatService catService;
@@ -49,23 +53,51 @@ class RateCatWithStarsTest {
 
     // Test data
     Cat dummy = new Cat("dummy", "dummy.png");
+    int stars = 5;
 
-    @DisplayName("Correct range of stars test")
     @ParameterizedTest(name = "Rating cat with {0} stars")
     @ValueSource(doubles = { 0.5, 5 })
+    @DisplayName("Correct range of stars test")
+    @Tag("functional-requirement-3")
     void testCorrectRangeOfStars(double stars) {
         when(catRepository.save(dummy)).thenReturn(dummy);
         Cat dummyCat = catService.rateCat(stars, dummy);
         assertThat(dummyCat.getAverageRate(), equalTo(stars));
     }
 
-    @DisplayName("Incorrect range of stars test")
     @ParameterizedTest(name = "Rating cat with {0} stars")
     @ValueSource(ints = { 0, 6 })
+    @DisplayName("Incorrect range of stars test")
+    @Tag("functional-requirement-3")
     void testIncorrectRangeOfStars(int stars) {
         assertThrows(CatException.class, () -> {
             catService.rateCat(stars, dummy);
         });
+    }
+
+    @ParameterizedTest(name = "Rating cat with comment: \"{0}\"")
+    @ValueSource(strings = { "foo", "bar" })
+    @DisplayName("Rating cats with comments")
+    @Tag("functional-requirement-4")
+    void testRatingWithComments(String comment) {
+        when(catRepository.findById(any(Long.class)))
+                .thenReturn(Optional.of(dummy));
+        Cat dummyCat = catService.rateCat(stars, comment, 1);
+        assertThat(
+                catService.getOpinions(dummyCat).iterator().next().getComment(),
+                equalTo(comment));
+    }
+
+    @Test
+    @DisplayName("Rating cats with empty comments")
+    @Tag("functional-requirement-4")
+    void testRatingWithEmptyComments() {
+        when(catRepository.findById(any(Long.class)))
+                .thenReturn(Optional.of(dummy));
+        Cat dummyCat = catService.rateCat(stars, dummy);
+        assertThat(
+                catService.getOpinions(dummyCat).iterator().next().getComment(),
+                isEmptyString());
     }
 
 }

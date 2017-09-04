@@ -41,10 +41,10 @@ import io.github.bonigarcia.CookiesService;
 import io.github.bonigarcia.Opinion;
 import io.github.bonigarcia.mockito.MockitoExtension;
 
-@Tag("unit")
-@Tag("FR6")
-@DisplayName("Test with cookies")
 @ExtendWith(MockitoExtension.class)
+@DisplayName("Test with cookies")
+@Tag("unit")
+@Tag("functional-requirement-5")
 class CookiesTest {
 
     @InjectMocks
@@ -53,8 +53,12 @@ class CookiesTest {
     @Mock
     HttpServletResponse response;
 
-    @DisplayName("Update cookies test")
+    // Test data
+    Cat dummy = new Cat("dummy", "dummy.png");
+    String dummyCookie = "0#0.0#_";
+
     @Test
+    @DisplayName("Update cookies test")
     void testUpdateCookies() {
         doNothing().when(response).addCookie(any(Cookie.class));
         String cookies = cookiesService.updateCookies("", 0L, 0D, "", response);
@@ -62,12 +66,8 @@ class CookiesTest {
         assertThat(cookies, containsString(CookiesService.CAT_SEPARATOR));
     }
 
-    // Test data
-    Cat dummy = new Cat("dummy", "dummy.png");
-    String dummyCookie = "0#0.0#_";
-
-    @DisplayName("Check cat in cookies")
     @Test
+    @DisplayName("Check cat in cookies")
     void testCheckCatInCookies() {
         boolean catInCookies = cookiesService.isCatInCookies(dummy,
                 dummyCookie);
