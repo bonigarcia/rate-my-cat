@@ -18,6 +18,7 @@ package io.github.bonigarcia.test.e2e;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 import org.junit.jupiter.api.DisplayName;
@@ -25,8 +26,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -44,20 +44,20 @@ public class UserInferfaceTest {
 
     @Test
     @DisplayName("Rate a cat using the GUI")
-    public void testRateCat(ChromeDriver chrome) {
-        chrome.get("http://localhost:" + serverPort);
-        chrome.findElement(By.id("Baby")).click();
+    public void testRateCat(FirefoxDriver driver) {
+        driver.get("http://localhost:" + serverPort);
+        driver.findElement(By.id("Baby")).click();
 
         String fourStarsSelector = "#form1 > div > div.rating-stars > span.empty-stars > span:nth-child(4)";
-        new WebDriverWait(chrome, 10)
+        new WebDriverWait(driver, 10)
                 .until(elementToBeClickable(By.cssSelector(fourStarsSelector)));
-        chrome.findElement(By.cssSelector(fourStarsSelector)).click();
+        driver.findElement(By.cssSelector(fourStarsSelector)).click();
 
-        chrome.findElement(By.xpath("//*[@id=\"comment\"]"))
+        driver.findElement(By.xpath("//*[@id=\"comment\"]"))
                 .sendKeys("Very nice cat");
-        chrome.findElement(By.cssSelector("#form1 > button")).click();
+        driver.findElement(By.cssSelector("#form1 > button")).click();
 
-        WebElement sucessDiv = chrome
+        WebElement sucessDiv = driver
                 .findElement(By.cssSelector("#success > div"));
         assertThat(sucessDiv.getText(), containsString("Your vote for Baby"));
     }
