@@ -36,31 +36,34 @@ public class DatabasePopulator {
 
     @PostConstruct
     private void initDatabase() {
-        log.debug("Pupulating database with cats");
 
-        Cat baby = new Cat("Baby", "baby.jpg");
-        List<Opinion> babyOpinions = new ArrayList<>();
-        babyOpinions.add(new Opinion(5, "Very cute"));
-        babyOpinions.add(new Opinion(3, "So so :|"));
-        baby.setOpinions(babyOpinions);
-        catService.saveCat(baby);
+        if (catService.getAllCats().isEmpty()) {
+            log.debug("Pupulating database with cats");
 
-        Cat bella = new Cat("Bella", "bella.jpg");
-        List<Opinion> bellaOpinions = new ArrayList<>();
-        bellaOpinions.add(new Opinion(5, "Simply amazing"));
-        bellaOpinions.add(new Opinion(4.5F, "That's a wonderful cat"));
-        bellaOpinions.add(new Opinion(4, "I like this one :)"));
-        bellaOpinions.add(new Opinion(3, "Not bad"));
-        bella.setOpinions(bellaOpinions);
-        catService.saveCat(bella);
+            Cat baby = new Cat("Baby", "baby.jpg");
+            List<Opinion> babyOpinions = new ArrayList<>();
+            babyOpinions.add(new Opinion(5, "Very cute"));
+            babyOpinions.add(new Opinion(3, "So so :|"));
+            baby.setOpinions(babyOpinions);
+            catService.saveCat(baby);
 
-        catService.saveCat(new Cat("Gizmo", "gizmo.jpg"));
-        catService.saveCat(new Cat("Kitty", "kitty.jpg"));
-        catService.saveCat(new Cat("Luna", "luna.jpg"));
-        catService.saveCat(new Cat("Shadow", "shadow.jpg"));
-        catService.saveCat(new Cat("Smokey", "smokey.jpg"));
-        catService.saveCat(new Cat("Tigger", "tigger.jpg"));
-        catService.saveCat(new Cat("Toby", "toby.jpg"));
+            Cat bella = new Cat("Bella", "bella.jpg");
+            List<Opinion> bellaOpinions = new ArrayList<>();
+            bellaOpinions.add(new Opinion(5, "Simply amazing"));
+            bellaOpinions.add(new Opinion(4.5F, "That's a wonderful cat"));
+            bellaOpinions.add(new Opinion(4, "I like this one :)"));
+            bellaOpinions.add(new Opinion(3, "Not bad"));
+            bella.setOpinions(bellaOpinions);
+            catService.saveCat(bella);
+
+            catService.saveCat(new Cat("Gizmo", "gizmo.jpg"));
+            catService.saveCat(new Cat("Kitty", "kitty.jpg"));
+            catService.saveCat(new Cat("Luna", "luna.jpg"));
+            catService.saveCat(new Cat("Shadow", "shadow.jpg"));
+            catService.saveCat(new Cat("Smokey", "smokey.jpg"));
+            catService.saveCat(new Cat("Tigger", "tigger.jpg"));
+            catService.saveCat(new Cat("Toby", "toby.jpg"));
+        }
 
         log.debug("Number of cats in the database: {}",
                 catService.getCatCount());
