@@ -14,8 +14,8 @@
 
     <properties>
         <!-- Dependency versions -->
-        <junit.jupiter.version>5.0.0-RC3</junit.jupiter.version>
-        <junit.platform.version>1.0.0-RC3</junit.platform.version>
+        <junit.jupiter.version>5.0.0</junit.jupiter.version>
+        <junit.platform.version>1.0.0</junit.platform.version>
         <selenium-jupiter.version>1.1.1</selenium-jupiter.version>
         <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
 
