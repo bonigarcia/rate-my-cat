@@ -41,7 +41,7 @@ import io.github.bonigarcia.CatService;
 import io.github.bonigarcia.mockito.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("Rating cats with stars")
+@DisplayName("Unit tests: rate cats")
 @Tag("unit")
 class RateCatsTest {
 

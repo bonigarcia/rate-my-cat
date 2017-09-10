@@ -42,7 +42,7 @@ import io.github.bonigarcia.Opinion;
 import io.github.bonigarcia.mockito.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("Test with cookies")
+@DisplayName("Unit tests: handling cookies")
 @Tag("unit")
 @Tag("functional-requirement-5")
 class CookiesTest {

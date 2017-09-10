@@ -35,6 +35,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
+@DisplayName("Integration tests: HTTP reponses")
 @Tag("integration")
 @Tag("functional-requirement-1")
 @Tag("functional-requirement-2")

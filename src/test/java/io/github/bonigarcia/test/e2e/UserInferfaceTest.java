@@ -42,7 +42,7 @@ import io.github.bonigarcia.SeleniumExtension;
 
 @ExtendWith({ SpringExtension.class, SeleniumExtension.class })
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-@DisplayName("Test of the web user interface")
+@DisplayName("E2E tests: user interface")
 @Tag("e2e")
 public class UserInferfaceTest {
 
