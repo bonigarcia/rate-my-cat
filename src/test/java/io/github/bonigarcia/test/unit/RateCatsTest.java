@@ -41,7 +41,7 @@ import io.github.bonigarcia.CatService;
 import io.github.bonigarcia.mockito.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("Unit tests: rate cats")
+@DisplayName("Unit tests: rating cats")
 @Tag("unit")
 class RateCatsTest {
 
@@ -54,6 +54,7 @@ class RateCatsTest {
     // Test data
     Cat dummy = new Cat("dummy", "dummy.png");
     int stars = 5;
+    String comment = "foo";
 
     @ParameterizedTest(name = "Rating cat with {0} stars")
     @ValueSource(doubles = { 0.5, 5 })
@@ -75,21 +76,20 @@ class RateCatsTest {
         });
     }
 
-    @ParameterizedTest(name = "Rating cat with comment: \"{0}\"")
-    @ValueSource(strings = { "foo", "bar" })
-    @DisplayName("Rating cats with comments")
+    @Test
+    @DisplayName("Rating cats with a comment")
     @Tag("functional-requirement-4")
-    void testRatingWithComments(String comment) {
+    void testRatingWithComments() {
         when(catRepository.findById(any(Long.class)))
                 .thenReturn(Optional.of(dummy));
-        Cat dummyCat = catService.rateCat(stars, comment, 1);
+        Cat dummyCat = catService.rateCat(stars, comment, 0);
         assertThat(
                 catService.getOpinions(dummyCat).iterator().next().getComment(),
                 equalTo(comment));
     }
 
     @Test
-    @DisplayName("Rating cats with empty comments")
+    @DisplayName("Rating cats with empty comment")
     @Tag("functional-requirement-4")
     void testRatingWithEmptyComments() {
         when(catRepository.findById(any(Long.class)))
