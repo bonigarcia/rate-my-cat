@@ -22,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -50,12 +51,14 @@ class WebContextTest {
     }
 
     @Test
+    @DisplayName("Check home page (GET /)")
     void testHomePage() throws Exception {
         mockMvc.perform(get("/")).andExpect(status().isOk())
                 .andExpect(content().contentType("text/html;charset=UTF-8"));
     }
 
     @Test
+    @DisplayName("Check rate cat (POST /)")
     void testRatePage() throws Exception {
         mockMvc.perform(post("/").param("catId", "1").param("stars", "1")
                 .param("comment", "")).andExpect(status().isOk())
@@ -63,6 +66,7 @@ class WebContextTest {
     }
 
     @Test
+    @DisplayName("Check rate cat (POST /) of an non-existing cat")
     void testRatePageCatNotAvailable() throws Exception {
         mockMvc.perform(post("/").param("catId", "0").param("stars", "1")
                 .param("comment", "")).andExpect(status().isOk())
@@ -70,6 +74,7 @@ class WebContextTest {
     }
 
     @Test
+    @DisplayName("Check rate cat (POST /) with bad parameters")
     void testRatePageNoParameters() throws Exception {
         mockMvc.perform(post("/")).andExpect(status().isBadRequest());
     }
