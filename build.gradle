@@ -1,7 +1,7 @@
 buildscript {
     ext {
         springBootVersion = '2.0.0.M7'
-        junitPlatformVersion = '1.0.0'
+        junitPlatformVersion = '1.0.2'
     }
     repositories {
         mavenCentral()
@@ -23,7 +23,7 @@ repositories {
 }
 
 ext {
-    junitJupiterVersion  = '5.0.0'
+    junitJupiterVersion  = '5.0.2'
     seleniumJupiterVersion  = '2.0.0'
 }
 
