@@ -45,7 +45,7 @@ public class CookiesService {
                 + CAT_SEPARATOR;
 
         log.debug("Adding cookie {}={}", COOKIE_NAME, newCookieValue);
-        response.addCookie(new Cookie("catList", newCookieValue));
+        response.addCookie(new Cookie(COOKIE_NAME, newCookieValue));
 
         return newCookieValue;
     }
