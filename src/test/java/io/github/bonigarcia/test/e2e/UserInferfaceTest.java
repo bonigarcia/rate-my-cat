@@ -31,7 +31,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -61,7 +60,7 @@ public class UserInferfaceTest {
     @Test
     @DisplayName("Rate a cat using the GUI")
     @Tag("functional-requirement-2")
-    public void testRateCat(PhantomJSDriver driver) {
+    public void testRateCat(FirefoxDriver driver) {
         driver.get("http://localhost:" + serverPort);
         driver.findElement(By.id("Baby")).click();
 
