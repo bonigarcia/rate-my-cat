@@ -35,11 +35,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import io.github.bonigarcia.Cat;
 import io.github.bonigarcia.CookiesService;
 import io.github.bonigarcia.Opinion;
-import io.github.bonigarcia.mockito.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Unit tests (white-box): handling cookies")

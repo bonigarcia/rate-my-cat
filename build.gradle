@@ -5,9 +5,6 @@ buildscript {
     }
     repositories {
         mavenCentral()
-        maven {
-            url 'https://repo.spring.io/milestone'
-        }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -17,14 +14,12 @@ buildscript {
 
 repositories {
     mavenCentral()
-    maven {
-        url 'https://repo.spring.io/libs-milestone'
-    }
 }
 
 ext {
     junitJupiterVersion  = '5.2.0'
     seleniumJupiterVersion  = '2.1.1'
+    mockitoJupiterVersion = '2.18.3'
 }
 
 apply plugin: 'java'
@@ -54,6 +49,7 @@ dependencies {
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("org.hamcrest:hamcrest-core")
     testCompile("io.github.bonigarcia:selenium-jupiter:${seleniumJupiterVersion}")
+    testCompile("org.mockito:mockito-junit-jupiter:${mockitoJupiterVersion}")
     testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
     testCompile("org.junit.jupiter:junit-jupiter-params:${junitJupiterVersion}")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")

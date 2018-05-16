@@ -33,12 +33,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import io.github.bonigarcia.Cat;
 import io.github.bonigarcia.CatException;
 import io.github.bonigarcia.CatRepository;
 import io.github.bonigarcia.CatService;
-import io.github.bonigarcia.mockito.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Unit tests (black-box): rating cats")
@@ -61,7 +61,6 @@ class RateCatsTest {
     @DisplayName("Correct range of stars test")
     @Tag("functional-requirement-3")
     void testCorrectRangeOfStars(double stars) {
-        when(catRepository.save(dummy)).thenReturn(dummy);
         Cat dummyCat = catService.rateCat(stars, dummy);
         assertThat(dummyCat.getAverageRate(), equalTo(stars));
     }
