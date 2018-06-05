@@ -17,8 +17,6 @@ The screenshots below show the application GUI in action.
 ![][Screeshot 1]
 ![][Screeshot 2]
 
-You can find an online demo of *Rate my cat!* deployed on [Amazon EC2].
-
 # About
 
 This is a project made by [Boni Garcia], Assistant Professor at [U-tad] and Researcher at [Universidad Rey Juan Carlos], Spain. Copyright &copy; 2017-2018.
@@ -28,7 +26,6 @@ This is a project made by [Boni Garcia], Assistant Professor at [U-tad] and Rese
 [Universidad Rey Juan Carlos]: https://www.urjc.es/
 [GitHub Repository]: https://github.com/bonigarcia/rate-my-cat
 [Logo]: https://raw.githubusercontent.com/bonigarcia/rate-my-cat/master/src/main/resources/static/img/rate-my-cat.png
-[Amazon EC2]: http://ec2-34-211-5-120.us-west-2.compute.amazonaws.com/
 [Screeshot 1]: https://raw.githubusercontent.com/bonigarcia/rate-my-cat/master/doc/rate-my-cat-screeshot-1.png
 [Screeshot 2]: https://raw.githubusercontent.com/bonigarcia/rate-my-cat/master/doc/rate-my-cat-screeshot-2.png
 [Mastering Software Testing with JUnit 5]: https://www.amazon.com/gp/product/1787285731/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1787285731&linkCode=as2&tag=boni0a-20&linkId=a0b9a99160003dfd49a797906e8c191b
