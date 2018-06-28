@@ -5,13 +5,17 @@ install: true
 
 addons:
     firefox: latest
-    apt:
-        packages:
-            - google-chrome-stable
     sonarcloud:
         organization: "bonigarcia-github"
         token:
             secure: "lgqsgEKHl4faQb+Dnqd/fq/y4v69ThpMqSVNFixS54b314OKhTOjd40x+0/UXretZ5IG2y60wQKvlNAQoCaaEUBFosNjcv5dBkoOOKadbv/jwNPbxaWkAnmd2NfXq4iYTPiFPki/bSH6UZ+kWSDSgsBGSUQOw18FCfHiuYCo1YcfjCrqePJrGXnqFRQQhA6tZYBhSFVhTCJIYZ32NjIo2qXl64sniaN+gqhag6VFD9WLHU6SbZbQ/FMNJKv3TfXzYv4r0KIjq5sI4RV1bpUV5XEI9H8iTFDUkGQ7Mg2sYmsPRGQwetYfZWaOBD2n5Hqmfzu97imj9sS1WFCJziHXGBA5SVy9p6SAR0elm00hpCqw8RumZZKcV1tSHBhGdToTDMxbjfuDDiAnkxykW2OthWcKFFpxnvue7CPG1LxNOAVEDnA1ZYKO8b6OuQr6Q7vOZnKRvEBdbkJT/b/ORMrlBjfZ48Q4/egsnkNRk12qXD3kMun6Q7fH0qX0hpBkbK+V8gOi5AUpRgccGrOcF4QZA/pB0iN//EgZKK+7oyW697roDRe19ucCMGP7jeKdVGT+KpJG/vius9rrt5i0B71ojNnSbPuSsa0xt7/Ov7sDFqsdR7uhcJ+6q26Soa6KvZKm66j50yz/NglswRAaOC2y51b300JYIytHHTfTr/toLYA="
+
+install:
+    - sudo apt-add-repository "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
+    - sudo sed -i s/deb-src.*google.*//g /etc/apt/sources.list
+    - wget -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+    - sudo apt-get update -qq
+    - sudo apt-get install -y google-chrome-stable
 
 before_script:
     - export DISPLAY=:99.0
