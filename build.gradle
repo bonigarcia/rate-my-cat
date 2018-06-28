@@ -17,7 +17,7 @@ repositories {
 ext {
     junitJupiterVersion  = '5.2.0'
     seleniumJupiterVersion  = '2.1.1'
-    mockitoJupiterVersion = '2.18.3'
+    mockitoJupiterVersion = '2.19.0'
 }
 
 apply plugin: 'java'
