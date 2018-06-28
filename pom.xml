@@ -13,8 +13,7 @@
     </parent>
 
     <properties>
-        <junit.jupiter.version>5.2.0</junit.jupiter.version>
-        <junit.platform.version>1.2.0</junit.platform.version>
+        <junit-jupiter.version>5.2.0</junit-jupiter.version>
         <selenium-jupiter.version>2.1.1</selenium-jupiter.version>
         <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
         <mockito-junit-jupiter.version>2.19.0</mockito-junit-jupiter.version>
@@ -56,16 +55,19 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <scope>test</scope>
+            <version>${junit-jupiter.version}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <scope>runtime</scope>
+            <version>${junit-jupiter.version}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
             <scope>test</scope>
+            <version>${junit-jupiter.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
