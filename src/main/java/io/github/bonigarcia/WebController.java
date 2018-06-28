@@ -16,8 +16,7 @@
  */
 package io.github.bonigarcia;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static io.github.bonigarcia.CookiesService.COOKIE_NAME;
 
 import java.util.List;
 import java.util.Locale;
@@ -28,7 +27,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -45,9 +45,9 @@ public class WebController {
 
     final Logger log = LoggerFactory.getLogger(WebController.class);
 
-    @RequestMapping(value = "/", method = GET)
+    @GetMapping("/")
     public ModelAndView index(
-            @CookieValue(value = CookiesService.COOKIE_NAME, defaultValue = "") String cookiesValue) {
+            @CookieValue(value = COOKIE_NAME, defaultValue = "") String cookiesValue) {
         log.trace("Cookies: {}", cookiesValue);
         ModelAndView model = new ModelAndView("index");
         List<Cat> allCats = catService.getAllCats();
@@ -56,10 +56,10 @@ public class WebController {
         return model;
     }
 
-    @RequestMapping(value = "/", method = POST)
+    @PostMapping("/")
     public ModelAndView rate(@RequestParam Long catId,
             @RequestParam Double stars, @RequestParam String comment,
-            @CookieValue(value = CookiesService.COOKIE_NAME, defaultValue = "") String cookiesValue,
+            @CookieValue(value = COOKIE_NAME, defaultValue = "") String cookiesValue,
             HttpServletResponse response) {
         log.info("Received vote for cat {}: stars={} comment={}", catId, stars,
                 comment);
