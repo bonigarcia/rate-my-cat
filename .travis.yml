@@ -25,9 +25,6 @@ before_script:
 jobs:
     include:
         - stage: Gradle
-            script:
-                - ./gradlew test
+          script: ./gradlew test
         - stage: Maven
-            script: 
-                - mvn test sonar:sonar
-                - bash <(curl -s https://codecov.io/bash)
+          script: mvn test sonar:sonar && bash <(curl -s https://codecov.io/bash)
