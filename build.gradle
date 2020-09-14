@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.0.3.RELEASE'
+        springBootVersion = '2.3.3.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -15,9 +15,7 @@ repositories {
 }
 
 ext {
-    junitJupiterVersion  = '5.3.0-M1'
-    seleniumJupiterVersion  = '2.1.1'
-    mockitoJupiterVersion = '2.19.0'
+    seleniumJupiterVersion  = '3.3.5'
 }
 
 apply plugin: 'java'
@@ -36,6 +34,7 @@ test {
 
     testLogging {
         events "passed", "skipped", "failed"
+        showStandardStreams = true
     }
 }
 
@@ -46,16 +45,17 @@ compileTestJava {
 }
 
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
-    compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    compile("com.h2database:h2")
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("com.h2database:h2")
 
-    testCompile("org.springframework.boot:spring-boot-starter-test")
-    testCompile("org.hamcrest:hamcrest-core")
-    testCompile("io.github.bonigarcia:selenium-jupiter:${seleniumJupiterVersion}")
-    testCompile("org.mockito:mockito-junit-jupiter:${mockitoJupiterVersion}")
-    testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
-    testCompile("org.junit.jupiter:junit-jupiter-params:${junitJupiterVersion}")
-    testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.hamcrest:hamcrest-core")
+    testImplementation("org.mockito:mockito-junit-jupiter")
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("org.junit.jupiter:junit-jupiter-params")
+    testImplementation("io.github.bonigarcia:selenium-jupiter:${seleniumJupiterVersion}")
+
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }

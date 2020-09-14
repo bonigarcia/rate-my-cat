@@ -38,9 +38,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import io.github.bonigarcia.SeleniumExtension;
+import io.github.bonigarcia.seljup.SeleniumJupiter;
 
-@ExtendWith({ SpringExtension.class, SeleniumExtension.class })
+@ExtendWith({ SpringExtension.class, SeleniumJupiter.class })
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @DisplayName("E2E tests: user interface")
 @Tag("e2e")

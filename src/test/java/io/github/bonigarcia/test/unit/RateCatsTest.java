@@ -18,7 +18,7 @@ package io.github.bonigarcia.test.unit;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.text.IsEmptyString.isEmptyString;
+import static org.hamcrest.text.IsEmptyString.emptyString;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -96,7 +96,7 @@ class RateCatsTest {
         Cat dummyCat = catService.rateCat(stars, dummy);
         assertThat(
                 catService.getOpinions(dummyCat).iterator().next().getComment(),
-                isEmptyString());
+                emptyString());
     }
 
 }
