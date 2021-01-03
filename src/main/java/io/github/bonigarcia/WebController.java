@@ -58,7 +58,8 @@ public class WebController {
 
     @PostMapping("/")
     public ModelAndView rate(@RequestParam Long catId,
-            @RequestParam Double stars, @RequestParam String comment,
+            @RequestParam(required = false) Double stars,
+            @RequestParam String comment,
             @CookieValue(value = COOKIE_NAME, defaultValue = "") String cookiesValue,
             HttpServletResponse response) {
         log.info("Received vote for cat {}: stars={} comment={}", catId, stars,
