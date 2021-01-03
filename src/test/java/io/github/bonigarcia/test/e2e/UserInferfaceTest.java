@@ -44,7 +44,7 @@ import io.github.bonigarcia.seljup.SeleniumJupiter;
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @DisplayName("E2E tests: user interface")
 @Tag("e2e")
-public class UserInferfaceTest {
+class UserInferfaceTest {
 
     @LocalServerPort
     int serverPort;
@@ -52,7 +52,7 @@ public class UserInferfaceTest {
     @Test
     @DisplayName("List cats in the GUI")
     @Tag("functional-requirement-1")
-    public void testListCats(ChromeDriver driver) {
+    void testListCats(ChromeDriver driver) {
         driver.get("http://localhost:" + serverPort);
         List<WebElement> catLinks = driver
                 .findElements(By.className("lightbox"));
@@ -62,7 +62,7 @@ public class UserInferfaceTest {
     @Test
     @DisplayName("Rate a cat using the GUI")
     @Tag("functional-requirement-2")
-    public void testRateCat(FirefoxDriver driver) {
+    void testRateCat(FirefoxDriver driver) {
         driver.get("http://localhost:" + serverPort);
         driver.findElement(By.id("Baby")).click();
 
@@ -83,7 +83,7 @@ public class UserInferfaceTest {
     @Test
     @DisplayName("Rate a cat using the GUI with error")
     @Tag("functional-requirement-2")
-    public void testRateCatWithError(
+    void testRateCatWithError(
             @Arguments("--headless") ChromeDriver driver) {
         driver.get("http://localhost:" + serverPort);
         driver.findElement(By.id("Baby")).click();
