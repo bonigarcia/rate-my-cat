@@ -19,7 +19,7 @@ The screenshots below show the application GUI in action.
 
 # About
 
-This is a project made by [Boni Garcia], Assistant Professor at [Universidad Carlos III de Madrid], Spain. Copyright &copy; 2017-2020.
+This is a project made by [Boni Garcia], Visiting Professor at [Universidad Carlos III de Madrid], Spain. Copyright &copy; 2017-2021.
 
 [Boni Garcia]: http://bonigarcia.github.io/
 [Universidad Carlos III de Madrid]: http://www.it.uc3m.es/bogarcia/index.html
