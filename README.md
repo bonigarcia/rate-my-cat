@@ -21,8 +21,8 @@ The screenshots below show the application GUI in action.
 
 This is a project made by [Boni Garcia], Visiting Professor at [Universidad Carlos III de Madrid], Spain. Copyright &copy; 2017-2021.
 
-[Boni Garcia]: http://bonigarcia.github.io/
-[Universidad Carlos III de Madrid]: http://www.it.uc3m.es/bogarcia/index.html
+[Boni Garcia]: https://bonigarcia.github.io/
+[Universidad Carlos III de Madrid]: https://www.it.uc3m.es/bogarcia/index.html
 [GitHub Repository]: https://github.com/bonigarcia/rate-my-cat
 [Logo]: https://raw.githubusercontent.com/bonigarcia/rate-my-cat/master/src/main/resources/static/img/rate-my-cat.png
 [Screeshot 1]: https://raw.githubusercontent.com/bonigarcia/rate-my-cat/master/doc/rate-my-cat-screeshot-1.png
