@@ -27,9 +27,9 @@ jobs:
         mvn -B sonar:sonar
         -Dsonar.host.url=https://sonarcloud.io
         -Dsonar.organization=bonigarcia-github
-        -Dsonar.projectKey=io.github.bonigarcia:selenium-jupiter
+        -Dsonar.projectKey=io.github.bonigarcia:rate-my-cat
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
