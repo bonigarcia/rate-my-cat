@@ -1,6 +1,6 @@
 # Rate my cat! [![][Logo]][GitHub Repository]
 
-[![Build Status](https://travis-ci.org/bonigarcia/rate-my-cat.svg?branch=master)](https://travis-ci.org/bonigarcia/rate-my-cat)
+[![Build Status](https://github.com/bonigarcia/rate-my-cat/workflows/build/badge.svg)](https://github.com/bonigarcia/rate-my-cat/actions)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=io.github.bonigarcia:rate-my-cat&metric=alert_status)](https://sonarcloud.io/dashboard/index/io.github.bonigarcia:rate-my-cat)
 [![codecov](https://codecov.io/gh/bonigarcia/rate-my-cat/branch/master/graph/badge.svg)](https://codecov.io/gh/bonigarcia/rate-my-cat)
 
