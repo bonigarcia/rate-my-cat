@@ -53,9 +53,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.hamcrest:hamcrest-core")
     testImplementation("org.mockito:mockito-junit-jupiter")
-    testImplementation("org.junit.jupiter:junit-jupiter-api")
-    testImplementation("org.junit.jupiter:junit-jupiter-params")
+    testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("io.github.bonigarcia:selenium-jupiter:${seleniumJupiterVersion}")
 
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter")
 }
