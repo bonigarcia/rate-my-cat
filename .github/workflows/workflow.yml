@@ -26,6 +26,7 @@ jobs:
     - name: Test with Gradle
       run: ./gradlew test
     - name: Upload analysis to SonarCloud
+      if: success() !contains(github.ref, 'pull')
       run: >
         mvn -B sonar:sonar
         -Dsonar.host.url=https://sonarcloud.io
