@@ -15,7 +15,7 @@ repositories {
 }
 
 ext {
-    seleniumJupiterVersion  = '3.4.0'
+    seleniumJupiterVersion  = '4.0.0'
 }
 
 apply plugin: 'java'
