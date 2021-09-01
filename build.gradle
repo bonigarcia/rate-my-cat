@@ -54,7 +54,6 @@ dependencies {
     testImplementation("org.hamcrest:hamcrest-core")
     testImplementation("org.mockito:mockito-junit-jupiter")
     testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.seleniumhq.selenium:selenium-java")
     testImplementation("io.github.bonigarcia:selenium-jupiter:${seleniumJupiterVersion}")
-
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter")
 }
