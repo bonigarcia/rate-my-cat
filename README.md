@@ -1,7 +1,7 @@
 # Rate my cat! [![][Logo]][GitHub Repository]
 
 [![Build Status](https://github.com/bonigarcia/rate-my-cat/workflows/build/badge.svg)](https://github.com/bonigarcia/rate-my-cat/actions)
-[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=io.github.bonigarcia:rate-my-cat&metric=alert_status)](https://sonarcloud.io/dashboard/index/io.github.bonigarcia:rate-my-cat)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=io.github.bonigarcia:rate-my-cat&metric=alert_status)](https://sonarcloud.io/project/overview?id=io.github.bonigarcia%3Arate-my-cat)
 [![codecov](https://codecov.io/gh/bonigarcia/rate-my-cat/branch/master/graph/badge.svg)](https://codecov.io/gh/bonigarcia/rate-my-cat)
 
 This project contains a complete sample application for the book [Mastering Software Testing with JUnit 5]. It consists on a web application in which end uses can rate a list of cats by watching its name and picture. The rate shall be done once per end user using a star mechanism. Optionally, comments can be made per cat. This application has been built using the following technologies:
