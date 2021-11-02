@@ -1,4 +1,4 @@
-# Rate my cat! [![][Logo]][GitHub Repository]
+# Rate my cat! [![][Logo]][GitHub Repository] .
 
 [![Build Status](https://github.com/bonigarcia/rate-my-cat/workflows/build/badge.svg)](https://github.com/bonigarcia/rate-my-cat/actions)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=io.github.bonigarcia:rate-my-cat&metric=alert_status)](https://sonarcloud.io/project/overview?id=io.github.bonigarcia%3Arate-my-cat)
