@@ -22,6 +22,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
+import java.time.Duration;
 import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
@@ -67,7 +68,7 @@ class UserInferfaceTest {
         driver.findElement(By.id("Baby")).click();
 
         String fourStarsSelector = "#form1 span:nth-child(4)";
-        new WebDriverWait(driver, 10)
+        new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(elementToBeClickable(By.cssSelector(fourStarsSelector)));
         driver.findElement(By.cssSelector(fourStarsSelector)).click();
 
@@ -83,13 +84,12 @@ class UserInferfaceTest {
     @Test
     @DisplayName("Rate a cat using the GUI with error")
     @Tag("functional-requirement-2")
-    void testRateCatWithError(
-            @Arguments("--headless") ChromeDriver driver) {
+    void testRateCatWithError(@Arguments("--headless") ChromeDriver driver) {
         driver.get("http://localhost:" + serverPort);
         driver.findElement(By.id("Baby")).click();
 
         String sendButtonSelector = "#form1 > button";
-        new WebDriverWait(driver, 10).until(
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(
                 elementToBeClickable(By.cssSelector(sendButtonSelector)));
         driver.findElement(By.cssSelector(sendButtonSelector)).click();
 
