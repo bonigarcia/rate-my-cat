@@ -26,9 +26,6 @@ import static org.mockito.Mockito.doNothing;
 
 import java.util.List;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -40,6 +37,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import io.github.bonigarcia.Cat;
 import io.github.bonigarcia.CookiesService;
 import io.github.bonigarcia.Opinion;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Unit tests (white-box): handling cookies")
