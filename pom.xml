@@ -15,6 +15,7 @@
     <properties>
         <selenium.version>4.8.3</selenium.version>
         <selenium-jupiter.version>4.3.3</selenium-jupiter.version>
+        <httpclient5.version>5.2.1</httpclient5.version>
 
         <maven-surefire-plugin.version>3.0.0-M6</maven-surefire-plugin.version>
         <jacoco-maven-plugin.version>0.8.9</jacoco-maven-plugin.version>
@@ -76,6 +77,12 @@
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>selenium-jupiter</artifactId>
             <version>${selenium-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
+            <version>${httpclient5.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

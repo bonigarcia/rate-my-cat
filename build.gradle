@@ -17,6 +17,7 @@ repositories {
 ext {
     seleniumVersion  = '4.8.3'
     seleniumJupiterVersion  = '4.3.3'
+    httpclient5Version  = '5.2.1'
 }
 
 apply plugin: 'java'
@@ -57,4 +58,5 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.seleniumhq.selenium:selenium-java:${seleniumVersion}")
     testImplementation("io.github.bonigarcia:selenium-jupiter:${seleniumJupiterVersion}")
+    testImplementation("org.apache.httpcomponents.client5:httpclient5:${httpclient5Version}")
 }
