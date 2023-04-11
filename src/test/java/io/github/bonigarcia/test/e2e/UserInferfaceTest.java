@@ -53,7 +53,7 @@ class UserInferfaceTest {
     @Test
     @DisplayName("List cats in the GUI")
     @Tag("functional-requirement-1")
-    void testListCats(ChromeDriver driver) {
+    void testListCats(@Arguments("--remote-allow-origins=*") ChromeDriver driver) {
         driver.get("http://localhost:" + serverPort);
         List<WebElement> catLinks = driver
                 .findElements(By.className("lightbox"));
@@ -84,7 +84,7 @@ class UserInferfaceTest {
     @Test
     @DisplayName("Rate a cat using the GUI with error")
     @Tag("functional-requirement-2")
-    void testRateCatWithError(@Arguments("--headless") ChromeDriver driver) {
+	void testRateCatWithError(@Arguments({ "--headless", "--remote-allow-origins=*" }) ChromeDriver driver) {
         driver.get("http://localhost:" + serverPort);
         driver.findElement(By.id("Baby")).click();
 
