@@ -14,7 +14,7 @@
 
     <properties>
         <selenium.version>4.9.1</selenium.version>
-        <selenium-jupiter.version>4.3.3</selenium-jupiter.version>
+        <selenium-jupiter.version>4.3.4</selenium-jupiter.version>
         <httpclient5.version>5.2.1</httpclient5.version>
 
         <maven-surefire-plugin.version>3.0.0-M6</maven-surefire-plugin.version>
