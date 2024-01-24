@@ -13,7 +13,7 @@
     </parent>
 
     <properties>
-        <selenium.version>4.16.1</selenium.version>
+        <selenium.version>4.17.0</selenium.version>
         <selenium-jupiter.version>5.0.1</selenium-jupiter.version>
         <httpclient5.version>5.3</httpclient5.version>
 
