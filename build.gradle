@@ -15,7 +15,7 @@ repositories {
 }
 
 ext {
-    seleniumVersion  = '4.32.0'
+    seleniumVersion  = '4.33.0'
     seleniumJupiterVersion  = '6.1.1'
     httpclient5Version  = '5.4.3'
 }
